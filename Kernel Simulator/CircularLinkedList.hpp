@@ -6,16 +6,21 @@
 #include <thread>
 
 
-//Implementation of a Deque using a doubly linked circular list
-//with a header
+/*
+ * Node Struct to be used in the list with constructors
+ */
 struct NodeType
 {
     PCB info;
     NodeType* next;
     NodeType* prev;
     
-    NodeType(){
-        
+    NodeType(){}
+    
+    NodeType(PCB newPCB){
+        info = newPCB;
+        next = this;
+        prev = this;
     }
     
     NodeType(PCB newPCB, NodeType* newNext, NodeType* newPrev){
@@ -26,6 +31,10 @@ struct NodeType
 
 };
 
+/*
+ * Circular Linked List struct with mutex for threads
+ */
+
 struct List
 {
     NodeType *head;
@@ -33,34 +42,49 @@ struct List
     pthread_mutex_t lock;
 };
 
-//used to print the items in the list
+/*
+ * Formats and prints the list
+ */
 void printList (List *list);
 
-//initialize the list with the header pointing at itself
+/*
+ * Initializes an empty list
+ */
 List initializeList();
 
-//return true if the only element on the list is the header
-//otherwise return false
+/*
+ * Returns true if list size is equal to 0
+ */
 bool isEmpty(const List LinkedList);
 
-//Remove all elements including the header from the list
-//set the List to null
+/*
+ * Completely empties the list
+ */
 void clearList(List *linkedList);
 
-//Add the value to the front of the list
+/*
+ * Add a new Node to the front of the List
+ */
 List pushFront(List &list, PCB value);
 
-//Add the value to the back of the list
+/*
+ * Add a new Node to the back of the list
+ */
 List pushBack(List &list, PCB value);
 
-//Remove and return the value at the front of the list
+/*
+ * Removes the first node in the list
+ */
 NodeType* popFront(List *list);
 
-//Remove and return the value at the back of the list
-NodeType popBack(List *list);
+/*
+ * Removes the last node in the list
+ */
+NodeType* popBack(List *list);
 
-//Return true if the value appears in the list,
-//otherwise return false
+/*
+ * Returns true if the element is found in the list
+ */
 bool findInList(List *list, PCB value);
 
 #endif /* CircularLinkedList_hpp */
