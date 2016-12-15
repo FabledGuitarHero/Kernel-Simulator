@@ -32,13 +32,8 @@ bool isEmpty(const List linkedList)
 //Empty the List and set the list to NULL
 void clearList(List *linkedList)
 {
-    if(isEmpty (* linkedList))
-    {
-        //Do nothing
-    }
-    else{
+    if(!isEmpty (* linkedList))
         linkedList->head = NULL;
-    }
     
     linkedList->size = 0;
 }
